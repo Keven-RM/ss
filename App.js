@@ -1,9 +1,7 @@
 import 'react-native-gesture-handler';
 
 import React from 'react';
-import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
-
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
 import Gadget from './src/pages/Gadget';
@@ -15,11 +13,10 @@ import Setings from './src/pages/setings';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 const Tab = createMaterialBottomTabNavigator();
-
 export default function App() {
   return (
       <NavigationContainer>
-        <Tab.Navigator initialRouteName="Config">
+        <Tab.Navigator initialRouteName="Home">
           <Tab.Screen name="Gadget" component={Gadget} options={{
             tabBarIcon: ({ color }) => (
                 <Icon name="watch" color={color} size={26} />

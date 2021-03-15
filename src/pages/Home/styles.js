@@ -19,7 +19,7 @@ export const Main = styled.View`
     align-items: center; 
     width: 90%;
     overflow: hidden;
-    margin: 20px 0;
+    margin: 40px 0;
 `;
 
 export const Text = styled.Text`
