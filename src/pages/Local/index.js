@@ -20,37 +20,37 @@ export default function Local() {
         <HistoryText>Historíco de localização</HistoryText>
         <ScrollView style={styles.scroll}>
           <HistoryOption>
-            <TextOption>Dia 2 de fevereiro de 2021</TextOption>
+            <TextOption>Dia 2 de feve. de 2021</TextOption>
             <IconContainer>
             <Icon name="east" size={40} />
             </IconContainer>
           </HistoryOption>
           <HistoryOption>
-            <TextOption>Dia 2 de fevereiro de 2021</TextOption>
+            <TextOption>Dia 4 de março de 2021</TextOption>
             <IconContainer>
             <Icon name="east" size={40} />
             </IconContainer>
           </HistoryOption>
           <HistoryOption>
-            <TextOption>Dia 2 de fevereiro de 2021</TextOption>
+            <TextOption>Dia 17 de junho de 2021</TextOption>
             <IconContainer>
             <Icon name="east" size={40} />
             </IconContainer>
           </HistoryOption>
           <HistoryOption>
-            <TextOption>Dia 2 de fevereiro de 2021</TextOption>
+            <TextOption>Dia 22 de julho de 2021</TextOption>
             <IconContainer>
             <Icon name="east" size={40} />
             </IconContainer>
           </HistoryOption>
           <HistoryOption>
-            <TextOption>Dia 2 de fevereiro de 2021</TextOption>
+            <TextOption>Dia 5 de agosto de 2021</TextOption>
             <IconContainer>
             <Icon name="east" size={40} />
             </IconContainer>
           </HistoryOption>
           <HistoryOption>
-            <TextOption>Dia 2 de fevereiro de 2021</TextOption>
+            <TextOption>Dia 29 de setem. de 2021</TextOption>
             <IconContainer>
             <Icon name="east" size={40} />
             </IconContainer>

@@ -14,8 +14,8 @@ export default function OptionNavigate(props) {
         <Title>{props.name}</Title>
         <Text>{props.content}</Text>
       </Content>
-      <IconNavigation>
-        <Icon name="east" size={30} onPress={props.route} />
+      <IconNavigation onPress={props.route}>
+        <Icon name="east" size={30}  />
       </IconNavigation>
     </Container>
   );

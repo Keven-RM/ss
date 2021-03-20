@@ -30,6 +30,7 @@ export const Text = styled.Text`
 `;
  
 export const IconNavigation = styled.View`
-    padding: 17px 0px;
-    padding-left: 30px;
+    margin: 7px 0px;
+    margin-left: 30px;
+    padding: 10px;
 `;

@@ -10,13 +10,15 @@ import BPM from './src/pages/BPM';
 import Local from './src/pages/Local';
 import Setings from './src/pages/setings';
 
+import MapPage from './src/pages/MapPage';
+
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 const Tab = createMaterialBottomTabNavigator();
 export default function App() {
   return (
       <NavigationContainer>
-        <Tab.Navigator initialRouteName="Home">
+        <Tab.Navigator initialRouteName="Local">
           <Tab.Screen name="Gadget" component={Gadget} options={{
             tabBarIcon: ({ color }) => (
                 <Icon name="watch" color={color} size={26} />
@@ -32,7 +34,7 @@ export default function App() {
                 <Icon name="home" color={color} size={26} />
               ),
             }}/>
-          <Tab.Screen name="Local" component={Local} options={{
+          <Tab.Screen name="Local" component={MapPage} options={{
               tabBarIcon: ({ color }) => (
                   <Icon name="room" color={color} size={26} />
                 ),

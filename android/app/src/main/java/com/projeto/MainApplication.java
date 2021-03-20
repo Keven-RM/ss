@@ -6,11 +6,16 @@ import android.net.Uri;
 
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.agontuk.RNFusedLocation.RNFusedLocationPackage;
+import com.reactnativecommunity.geolocation.GeolocationPackage;
+import com.reactnativecommunity.geolocation.GeolocationPackage;
+import com.airbnb.android.react.maps.MapsPackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+import com.mapbox.rctmgl.RCTMGLPackage;
 import com.projeto.generated.BasePackageList;
 
 import org.unimodules.adapters.react.ReactAdapterPackage;
@@ -41,6 +46,7 @@ public class MainApplication extends Application implements ReactApplication {
 
     @Override
     protected List<ReactPackage> getPackages() {
+      new RCTMGLPackage(),
       List<ReactPackage> packages = new PackageList(this).getPackages();
       packages.add(new ModuleRegistryAdapter(mModuleRegistryProvider));
       return packages;

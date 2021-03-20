@@ -184,6 +184,14 @@ android {
 }
 
 dependencies {
+    implementation project(':rctmgl')
+    
+    implementation project(':mapbox-react-native-mapbox-gl') {
+    implementation ('com.squareup.okhttp3:okhttp:3.6.0') {
+        force = true
+        }
+    }
+    
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules

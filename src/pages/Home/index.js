@@ -2,11 +2,16 @@ import React from 'react'
 
 import { StatusBar } from 'expo-status-bar'
 import OptionNavigate from '../../components/OptionNavigate'
-import { View, Main, Text, MapContainer } from './styles'
+import { View, Main, MapContainer, Text } from './styles'
+import Mapa from '../MapPage/'
+
+
 export default function Home({navigation}){
-    
+    // const LocalRoute = () =>{
+    //     navigation.navigate('Local')
+    // }
     const LocalRoute = () =>{
-        navigation.navigate('Local')
+        navigation.navigate(Mapa)
     }
     const BPMRoute = () =>{
         navigation.navigate('BPM')
@@ -22,11 +27,11 @@ export default function Home({navigation}){
 
         <Main>
             <MapContainer />
+            <Text>Clique no mapa para buscar a localização</Text>
         </Main>
-            <Text onPress={() =>{navigation.navigate('Local')}}>hghjbkl</Text>
-            <OptionNavigate icon="room" name="LOCALIZAÇÃO" content="Acessar localizações"  color="#31A315" route={LocalRoute} />
-            <OptionNavigate icon="favorite" name="FREQUÊNCIA CARDÍACA" content="Localizado a 2 horas" color="#ED0808" route={BPMRoute} />
-            <OptionNavigate icon="watch" name="RASTREADOR" content="Acessar informações" color="#5586AA" route={GadgetRoute} />
+            <OptionNavigate icon="room" name="LOCALIZAÇÃO" content="Acessar localizações"  color="#31A315" onPress={LocalRoute} />
+            <OptionNavigate icon="favorite" name="FREQUÊNCIA CARDÍACA" content="Localizado a 2 horas" color="#ED0808" onPress={BPMRoute} />
+            <OptionNavigate icon="watch" name="RASTREADOR" content="Acessar informações" color="#5586AA" onPress={GadgetRoute} />
     </View>
     </>
     )

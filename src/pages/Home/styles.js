@@ -23,6 +23,7 @@ export const Main = styled.View`
 `;
 
 export const Text = styled.Text`
-    color: grey;
-    font-size: 12px;
+    color: black;
+    font-weight: bold;
+    font-size: 16px;
 `;
