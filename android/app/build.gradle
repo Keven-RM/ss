@@ -83,7 +83,6 @@ project.ext.react = [
 
 apply from: '../../node_modules/react-native-unimodules/gradle.groovy'
 apply from: "../../node_modules/react-native/react.gradle"
-apply from: "../../node_modules/expo-constants/scripts/get-app-config-android.gradle"
 apply from: "../../node_modules/expo-updates/scripts/create-manifest-android.gradle"
 
 /**
@@ -132,7 +131,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.projeto"
+        applicationId "com.blogreactnativemaps"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -184,14 +183,6 @@ android {
 }
 
 dependencies {
-    implementation project(':rctmgl')
-    
-    implementation project(':mapbox-react-native-mapbox-gl') {
-    implementation ('com.squareup.okhttp3:okhttp:3.6.0') {
-        force = true
-        }
-    }
-    
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules

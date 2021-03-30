@@ -1,6 +1,6 @@
 import styled from 'styled-components/native'
+import { RectButton } from 'react-native-gesture-handler';
 
-//Main, Title, Connection, Status, Battery, BatteryValue, Id, IdValue
 export const Container = styled.View`
     background: #F1F1F1;   
     height: 100%;
@@ -24,7 +24,7 @@ export const NoConnectedContainer = styled.View`
     justify-content: center; 
 `;
 
-export const ConnectionButton = styled.View`
+export const ConnectionButton = styled(RectButton)`
     flex-direction: row;
     justify-content: center;
     border-radius: 10px;
@@ -61,7 +61,7 @@ export const Text = styled.Text`
     text-align: center;
 `;
 
-export const RemoveConnection = styled.View`
+export const RemoveConnection = styled(RectButton)`
     flex-direction: row;
     justify-content: center;
     border: 2px solid red;

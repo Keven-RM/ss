@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 
 import { Modal, Pressable } from 'react-native'
 import { Container, Img, Main, Title , Text, RemoveConnection, RemoveConnectionText, Battery, StatusContainer, BatteryValue, PopUp, NoConnectedContainer, ConnectionButton, ConnectionText } from './styles'
+
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import IconFA from 'react-native-vector-icons/FontAwesome5'
  
@@ -86,13 +87,10 @@ export default function Gadget(){
                     <Img source={{uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5LkVciWbGrO048bYgMDz0EjJ5POmqSxLFBv6k5mA6ut3LMNCgzfekWD50YwCYbgKsir0utLzZ&usqp=CAc',}} />
                 </Pressable>
 
-
-            <Pressable onPress={() => setIsConnected(false)}>
-            <RemoveConnection>
+            <RemoveConnection onPress={() => setIsConnected(false)}>
                     <Icon name="clear" size={30} color="white" />
                     <RemoveConnectionText>Remover</RemoveConnectionText>
             </RemoveConnection>
-            </Pressable>
         </Main>
         <Battery>
             <StatusContainer>
@@ -111,11 +109,9 @@ export default function Gadget(){
                     <Text>Nenhum aparelho conectado</Text>
                 </NoConnectedContainer>
             </Main>
-                <Pressable onPress={()=> setIsConnected(true)}>
-                <ConnectionButton>
+                <ConnectionButton onPress={()=> setIsConnected(true)}>
                     <ConnectionText>Conectar</ConnectionText>
                 </ConnectionButton>
-                </Pressable>
             </>
             }
         </Container>

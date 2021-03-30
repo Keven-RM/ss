@@ -1,5 +1,5 @@
 import styled from 'styled-components/native'
-
+import { RectButton } from 'react-native-gesture-handler';
 
 export const Container = styled.View`
     flex-direction: row;
@@ -29,7 +29,7 @@ export const Text = styled.Text`
     color: black;
 `;
  
-export const IconNavigation = styled.View`
+export const IconNavigation = styled(RectButton)`
     margin: 7px 0px;
     margin-left: 30px;
     padding: 10px;

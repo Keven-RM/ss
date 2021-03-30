@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { RectButton } from 'react-native-gesture-handler';
 
 export const Container = styled.View`
     align-items: center
@@ -38,7 +39,7 @@ export const BPMText = styled.Text`
     font-size: 16px;
 `;
 
-export const Button = styled.View`
+export const Button = styled(RectButton)`
     margin-top: 25px;
     padding: 10px 15px;
     border-radius: 10px;

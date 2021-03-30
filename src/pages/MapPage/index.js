@@ -1,90 +1,62 @@
-import React, {useState, useEffect} from "react";
-import { StyleSheet, View, Dimensions, Text } from "react-native";
-import MapView, { MapEvent, Marker } from 'react-native-maps';
-import { RectButton } from "react-native-gesture-handler";
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet } from 'react-native'
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'; // remove PROVIDER_GOOGLE import if not using Google Maps
 
-export default function Mapa() {
-  const [devs, setDevs] = useState(null)
+import { MapView, PROVIDER_GOOGLE, Marker, initialRegion } from 'react-native-maps'
+import * as Location from "expo-location";
 
-  function GetPosition(){
-    navigator.geolocation.getCurrentPosition(
-      (position)=> setDevs(position.coords), 
-      ()=>{}, 
-      {
-        timeout: 4000,
-        enableHighAccuracy: true,
-        maximumAge: 0
-      }
-    )
+export default function MapPage(){
+  const [region, setRegion] = useState
+  ({    
+      latitude: 49.2576508,
+      longitude: -123.2639868,
+      latitudeDelta: 0.010,
+      longitudeDelta: 0.010
+    })
+
+
+  const getCurrentPosition = async () => {
+    var { status } = await Location.requestPermissionsAsync();
+    if (status !== "granted") {
+      Alert.alert("Ops!", "Permissão de acesso a localização negada.");
+    }
+  
+    let {
+      coords: { latitude, longitude },
+    } = await Location.getCurrentPositionAsync();
+
+    setRegion({ latitude, longitude, latitudeDelta: 0.10, longitudeDelta: 0.10 });
+  
   }
 
-  useEffect(() => {
-    GetPosition()
-  }, []);
-  
-
-// Melhorar os nomes das variaveis da posição atual do usuario 
+  useEffect(()=>{
+    getCurrentPosition()
+  },[])
 
   return (
-    <View>
-      <MapView 
-        initialRegion={{
-          latitude: -25.3501072,
-          longitude: -49.3051397,
-          latitudeDelta: 0.008,
-          longitudeDelta: 0.008,
-        }}
-        calloutAnchor={{
-          x: 2.9,
-          y: 0.8,
-        }}
-        style={styles.mapStyle}
-      >
+    <View style={{flex: 1}}>
+        <MapView
+            style={{ flex: 1 }}
+            initialRegion={initialRegion}
+            region={region}
+            provider={PROVIDER_GOOGLE}
+            showsUserLocation
+            loadingEnabled
+        >
           <Marker
-            calloutAnchor={{
-              x: 2.9,
-              y: 0.8,
-            }}
-            coordinate={{
-              latitude: -25.3501072,
-              longitude: -49.3051397
-            }}
-          >
-          <View style={{backgroundColor: "red", padding: 10}}>
-            <Text>Sua posição atual</Text>
-          </View>
-        </Marker>
-        
-      </MapView>
-        <RectButton style={styles.nextButton}>
-          <Text style={styles.nextButtonText}>Próximo</Text>
-        </RectButton>
+            initialRegion={initialRegion}
+            coordinate={region}
+            title="Sua localização"
+          />
+          <Marker
+          initialRegion={initialRegion}
+          coordinate={{
+            latitude: -25.4233687,
+            longitude: -49.2727085,
+          }}
+          title="Shopping Mueller"
+        /> 
+        </MapView>
     </View>
-  )
+  );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    position: 'relative'
-  },
-
-  mapStyle: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
-  },
-
-  nextButton: {
-    backgroundColor: '#15c3d6',
-    borderRadius: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 56,
-
-    position: 'absolute',
-    left: 24,
-    right: 24,
-    bottom: 40,
-  },
-
-})

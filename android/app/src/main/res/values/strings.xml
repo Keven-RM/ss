@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Projeto</string>
+    <string name="app_name">MyFinder</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDSRPpAgrKXCQO15i0a7wPcrrbDLD43QJ8</string>
 </resources>

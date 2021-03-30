@@ -18,7 +18,7 @@ const Tab = createMaterialBottomTabNavigator();
 export default function App() {
   return (
       <NavigationContainer>
-        <Tab.Navigator initialRouteName="Local">
+        <Tab.Navigator initialRouteName="Home">
           <Tab.Screen name="Gadget" component={Gadget} options={{
             tabBarIcon: ({ color }) => (
                 <Icon name="watch" color={color} size={26} />

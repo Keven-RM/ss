@@ -7,6 +7,14 @@
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "android": {
+      "package": "com.kevenrm.Projeto",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyDSRPpAgrKXCQO15i0a7wPcrrbDLD43QJ8"
+        }
+      }
+    }
   }
 }

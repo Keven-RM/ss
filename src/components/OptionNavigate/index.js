@@ -1,10 +1,8 @@
 import React from 'react';
-
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { Container, Div, Content, Title, Text, IconNavigation } from './styles'
 
 export default function OptionNavigate(props) {
-
   return (
     <Container>
       <Div>
@@ -15,7 +13,7 @@ export default function OptionNavigate(props) {
         <Text>{props.content}</Text>
       </Content>
       <IconNavigation onPress={props.route}>
-        <Icon name="east" size={30}  />
+        <Icon name="east" size={30} />
       </IconNavigation>
     </Container>
   );
