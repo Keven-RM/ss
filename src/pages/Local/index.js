@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 import OptionNavigate from '../../components/OptionNavigate'
 import { StyleSheet } from 'react-native'
 
-import { Container, Tittle, Main, CardText, History,HistoryOption, TextOption, HistoryText, Content, IconContainer} from './styles'
+import { Container, Tittle, Main, CardText, History,HistoryOption, TextOption, HistoryText, IconContainer} from './styles'
 
 export default function Local() {
   return (
