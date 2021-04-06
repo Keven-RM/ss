@@ -7,11 +7,10 @@ export const View = styled.View`
 `;
 
 export const MapContainer = styled.View`
-    height: 325px;
-    width: 90%;
     border-radius: 5px;
-    elevation: 3;
     margin-bottom: 15px;
+    border: 1px solid grey;
+    elevation: 3;
 `;
 
 export const Main = styled.View`
@@ -19,11 +18,16 @@ export const Main = styled.View`
     align-items: center; 
     width: 90%;
     overflow: hidden;
-    margin: 40px 0;
 `;
 
 export const Text = styled.Text`
     color: black;
     font-weight: bold;
     font-size: 16px;
+    margin-bottom: 20px;
+`;
+
+export const IconContent = styled.View`
+    margin: 23px 0;
+    margin-bottom: 10px;
 `;
