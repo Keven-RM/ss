@@ -1,8 +1,5 @@
 import styled from 'styled-components'
-
-
-Container, Tittle, Option, TittleOption, Selection, 
-IconContainer, TextContainer, TextContent 
+import { TouchableOpacity } from 'react-native';
 
 export const Container = styled.View`
     align-items: center
@@ -15,30 +12,65 @@ export const Tittle = styled.Text`
 `;
 
 export const Option = styled.View`
-    width: 85%;
+    width: 93%;
     padding: 10px;
     margin-top: 20px;
     background: #fff;
-    border: 1px solid black;
 `;
 
 export const TittleOption = styled.Text`
     font-size: 24px;
-    margin-bottom: 10px
+    margin: 5px 10px;
 `;
 
 export const Selection = styled.View`
-flex-direction: row
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding: 25px 10px 5px;
 `;
 
 export const IconContainer = styled.View`
-    padding: 0px 20px
+    flex-direction: column;
+    align-items: center;
+    padding: 19px;    
+    margin: 10px auto;
+    border-radius: 90px;
+    background-color: #d8d8d8;
+
 `;
 export const TextContainer = styled.View`
-    flex-direction: column;
-    margin: 5px 0;
+    align-items: center;
 `;
 export const TextContent = styled.Text`
-font-size: 18px;
-color: #666666;
+    font-size: 18px;
+    color: #666666;
+    text-align: center;
+    margin: 2px 0;
+`;
+
+export const UserName = styled.Text`
+    font-size: 18px;
+    color: black;
+    text-align: center;
+    margin: 7px 0;
+    max-width: 200px;
+    font-weight: bold;
+`;
+
+export const EditButton = styled(TouchableOpacity)`
+    background-color: #106cd6;
+    padding: 5px 10px;
+    color: black;
+    font-size: 50px;
+    border-radius: 30px;
+    flex-direction: row;
+`;
+
+export const Text = styled.Text`
+    font-size: 18px;
+    color: white;
+    margin: auto;
+    padding: 0 10px;
+    padding-right: 10px;
 `;

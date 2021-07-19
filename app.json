@@ -9,6 +9,7 @@
       "**/*"
     ],
     "android": {
+      "useNextNotificationsApi": true,
       "package": "com.kevenrm.Projeto",
       "config": {
         "googleMaps": {

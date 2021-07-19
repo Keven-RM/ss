@@ -7,10 +7,12 @@ export const View = styled.View`
 `;
 
 export const MapContainer = styled.View`
-    border-radius: 5px;
     margin-bottom: 15px;
     border: 1px solid grey;
-    elevation: 3;
+    border-radius: 20px;
+    padding: 1px;
+    overflow: hidden;
+    elevation: 7
 `;
 
 export const Main = styled.View`
@@ -20,7 +22,7 @@ export const Main = styled.View`
     overflow: hidden;
 `;
 
-export const Text = styled.Text`
+export const MapText = styled.Text`
     color: black;
     font-weight: bold;
     font-size: 16px;
@@ -28,6 +30,16 @@ export const Text = styled.Text`
 `;
 
 export const IconContent = styled.View`
-    margin: 23px 0;
-    margin-bottom: 10px;
+    margin: 45px 0;
+    margin-bottom: 23px;
+    align-items: center;
+`;
+
+export const FunctionOption = styled.View`
+    height: 110px;
+    width:  110px;
+    border: 2px solid black;
+    border-radius: 20px;
+    background: #8A8A8A;
+    align-items: center;
 `;

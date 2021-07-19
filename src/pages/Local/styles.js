@@ -1,4 +1,5 @@
 import { RectButton, ScrollView } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native'
 import styled from 'styled-components'
 
 export const Container = styled.View`
@@ -63,24 +64,4 @@ export const Scroll = styled(ScrollView)`
     flex-direction: column;
     height: 300px;
     margin-bottom: 100px;
-`;
-
-export const PopUp = styled.View`    
-    flex-direction: column;
-    height: 85px;
-    width: 355px;
-    margin: 30px auto;
-    padding: 10px 15px;
-    justify-content: center;
-    background: #505050;
-    border-radius: 15px;
-    border: 2px solid #5e5e5e;
-    elevation: 5;
-`;
-
-export const Div = styled.View`
-    align-items: flex-end;
-    margin-top: -15px;
-    padding: 5px 0;
-    padding-bottom: 10px;
 `;

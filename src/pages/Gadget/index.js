@@ -1,21 +1,28 @@
-import React, { useState } from 'react'
+import React, { useState, useContext, useEffect} from 'react'
+import axios from 'axios'
 
 import { Modal, Pressable } from 'react-native'
-import { Container, Img, Main, Title , Text, RemoveConnection, RemoveConnectionText, Battery, StatusContainer, BatteryValue, PopUp, NoConnectedContainer, ConnectionButton, ConnectionText } from './styles'
+import { Container, Img, Main, Title , Text, Text2, RemoveConnection,
+     RemoveConnectionText, Battery, StatusContainer, BatteryValue, 
+     PopUp, NoConnectedContainer, ConnectionButton, ConnectionText,
+     TextInput
+    } from './styles'
 
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import IconFA from 'react-native-vector-icons/FontAwesome5'
- 
 
-//IconNames: battery-full - Cheia; battery-half - Media; battery- quarter - pouca; battery-empty - vazia;
+import { SocketContext } from '../../context/SocketContext'
+import { UserContext } from '../../context/UserContext'
 
 export default function Gadget(){
+    const [valueInput, setValueInput] = useState('')
+    const [baterryValue, setBaterryValue] = useState(100)
     const [modalVisible, setModalVisible] = useState(false);    
-    const [isConnected, setIsConnected] = useState(true);    
+    const [isConnected, setIsConnected] = useState(false);    
 
     //valor da Bateria
-    function BatteryValueFunction(BatteryValue){
-        if(BatteryValue == 100){
+    const BatteryValueFunction = (BatteryValue) => {
+        if(BatteryValue === 100){
             return "battery-full"
         }
 
@@ -23,21 +30,21 @@ export default function Gadget(){
             return "battery-three-quarters"
         }
 
-        if(BatteryValue == 50 ){
+        if(BatteryValue === 50 ){
             return "battery-half"
         }
 
-        if(BatteryValue < 40){
+        if(BatteryValue < 40 && BatteryValue >0){
             return "battery-quarter"
         }
 
-        if(BatteryValue == 0){
+        if(BatteryValue === 0){
             return "battery-empty"
         }
     }
 
-    function BatteryColorFunction(BatteryValue){
-        if(BatteryValue == 100){
+    const BatteryColorFunction = (BatteryValue) => {
+        if(BatteryValue === 100){
             return "green"
         }
 
@@ -49,10 +56,8 @@ export default function Gadget(){
             return "yellow"
         }
 
-        if(BatteryValue < 40){
-            if(BatteryValue > 0){
-                return "orange"
-            }
+        if(BatteryValue < 40 && BatteryValue > 0){
+            return "orange"
         }
 
         if(BatteryValue === 0){
@@ -60,6 +65,43 @@ export default function Gadget(){
         }
     }
     
+    const { sendMessage, socket } = useContext(SocketContext)
+    const { user, tracker, setTracker } = useContext(UserContext)
+
+    const GetTracker = () => {
+        sendMessage(`connect_tracker:${valueInput}`)
+    }
+    
+    const RemoveTracker = () => {
+        sendMessage('remove_tracker')
+        setIsConnected(false)
+        axios.post(`http://192.168.1.5:8080/remover-tracker/${user.email}`)
+    }
+  
+    socket.onmessage = ({data}) =>{
+        if(data == 'connected'){            
+            setIsConnected(true)
+            axios.post(`http://192.168.1.5:8080/user/adicionar-tracker/${user.email}/${valueInput}`)
+            sendMessage('need-battery')
+
+        }
+
+        if(data.indexOf('BATTERY') > -1){
+            var result = parseInt( data.replace('BATTERY-RESPONSE:', '') )
+            setBaterryValue(result)
+        }
+    }
+
+    const UpdateTrackerInformation = () => {
+        var values = tracker;
+        values.id      = valueInput;
+        values.baterry = baterryValue;
+
+        setTracker(values)
+    }
+
+    UpdateTrackerInformation()
+
     return(
        <>
        <Container>
@@ -72,30 +114,30 @@ export default function Gadget(){
             transparent={true}
             visible={modalVisible}
             onRequestClose={() => {
-                setModalVisible(!modalVisible);
+                setModalVisible(!modalVisible)
             }}
             >
                 <Pressable onPress={()=> setModalVisible(false)}>
                 <PopUp>
-                    <Title>Informações</Title>
-                    <Text>ID: 98765</Text>
+                    <Title>ID</Title>
+                    <Text>{valueInput}</Text>
                 </PopUp>
                 </Pressable>
             </Modal>
 
                 <Pressable onPress={() => setModalVisible(!modalVisible)}>
-                    <Img source={{uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5LkVciWbGrO048bYgMDz0EjJ5POmqSxLFBv6k5mA6ut3LMNCgzfekWD50YwCYbgKsir0utLzZ&usqp=CAc',}} />
+                    <Img source={{uri: 'https://png.pngtree.com/png-vector/20190618/ourlarge/pngtree-tracker-glyph-black-icon-png-image_1503533.jpg',}} />
                 </Pressable>
 
-            <RemoveConnection onPress={() => setIsConnected(false)}>
+            <RemoveConnection onPress={() => RemoveTracker()}>
                     <Icon name="clear" size={30} color="white" />
                     <RemoveConnectionText>Remover</RemoveConnectionText>
             </RemoveConnection>
         </Main>
         <Battery>
             <StatusContainer>
-                <IconFA name={BatteryValueFunction(100)} color={BatteryColorFunction(100)} size={30} />
-                <BatteryValue>100%</BatteryValue>
+                <IconFA name={BatteryValueFunction(baterryValue)} color={BatteryColorFunction(baterryValue)} size={30} />
+                <BatteryValue>{baterryValue}%</BatteryValue>
             </StatusContainer>
             <Text>Bateria</Text>
         </Battery>
@@ -104,14 +146,19 @@ export default function Gadget(){
             <>
             <Main>
                 <Title>Status do rastreador</Title>
-
-                <NoConnectedContainer>
-                    <Text>Nenhum aparelho conectado</Text>
-                </NoConnectedContainer>
-            </Main>
-                <ConnectionButton onPress={()=> setIsConnected(true)}>
-                    <ConnectionText>Conectar</ConnectionText>
+                <Text2>Nenhum dispositivo concectado</Text2>
+                <TextInput 
+                    // style={styles.input}
+                    onChangeText={setValueInput}
+                    value={valueInput}
+                    placeholder="Digite o ID do rastreador"
+                    keyboardType="default"
+                    selectionColor="#303030"
+                />
+                <ConnectionButton onPress={() => GetTracker()}>
+                    <ConnectionText>Conectar dispositivo</ConnectionText>
                 </ConnectionButton>
+            </Main>
             </>
             }
         </Container>

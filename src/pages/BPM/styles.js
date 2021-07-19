@@ -92,4 +92,5 @@ export const CardSecondText = styled.Text`
     font-size: 16px;
     color: #868686;
     padding: 2px 0;
+    max-width: 200px;
 `;

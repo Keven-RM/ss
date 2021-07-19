@@ -1,5 +1,4 @@
-import React, { useState, useContext } from 'react';
-import { Modal, View, Pressable, Text } from 'react-native'
+import React, { useState, useEffect, useContext } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import{
       Container,
@@ -11,151 +10,99 @@ import{
       TextOption, 
       HistoryText, 
       IconContainer, 
-      Scroll,
-      PopUp,
-      Div
+      Scroll
       } from './styles'
-
 import axios from 'axios'
-import { PositionContext } from '../../context/MapContext'
-import { RectButton } from 'react-native-gesture-handler';
+
+import { SocketContext } from '../../context/SocketContext'
+import { UserContext } from '../../context/UserContext'
 
 export default function Local({navigation}) {
-  const [isVisible, setIsVisible] = useState(false)
-  const [position, setPosition] = useContext(PositionContext)
-
-  async function GetPosition(){
-    await axios.get('http://192.168.1.12:8080/')
-    .then(response => {
-      if(response.data === [null, undefined]){
-        setIsVisible(true)
-      }else{
-        setPosition(response.data)
-        navigation.navigate('Map')
-      }
-    })
+  const [position, setPosition] = useState(null)
+  const {sendMessage, socket}    = useContext(SocketContext);
+  const {user, setUser}          = useContext(UserContext);
+  
+  const GetLocation = () => {
+    sendMessage('need-location')
   }
+  
+  const UpdateTrackerInformation = () => {
+    var month = new Array(
+      'jan', 'fev', 'mar', 'abr', 'maio', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'
+    );
+    
+    var values = user;
+    var new_history = {
+        data: `${new Date().getDate()} de ${month[new Date().getMonth()]} de ${new Date().getFullYear()}`,
+        hora: `${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}`,
+        local: {
+          latitude:  position.latitude,
+          longitude:  position.longitude,
+          latitudeDelta: 0.010,
+          longitudeDelta: 0.010
+        }
+    }
+
+    values.historico_de_posicao.push(new_history)
+    setUser(values)
+
+    //Rota de atualização do historico de localização
+    axios({
+      method: 'post',
+      url: `http://192.168.1.5:8080/user/inserir-historico/${user.email}`,
+      data: new_history
+    });
+
+  }
+
+  const GotoMap = (data) => {
+
+    if(data.indexOf('LOCATION-RESPONSE') > -1){
+      console.log('Passou')
+      var index = data.indexOf(':') + 1;
+      var result = data.slice(index);
+      setPosition(JSON.parse(result)) // Message exemple to be sended by server: LOCATION-RESPONSE:{"latitude":-25.3485586,"longitude":-49.2959617,"latitudeDelta":0.010,"longitudeDelta":0.010}
+      UpdateTrackerInformation()//Atualiza o context do usuario
+
+      navigation.navigate('Map', {local: position}) //Vai para o mapa
+    }
+  }
+
+  socket.onmessage = ({data}) => {
+    GotoMap(data)
+  }
+
+  useEffect(()=> {
+    setUser(user)
+  }, [])
 
   return (
     <Container>
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={isVisible}
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <PopUp>
-          <Div>
-            <Icon name="close" color="red" size={25} onPress={() => setIsVisible(!isVisible)} />
-          </Div>
-          <Text style={{fontSize: 18, color: 'white'}}>Não foi possivel obter a localização</Text>
-        </PopUp>
-
-      </Modal>
       <Tittle>Localização</Tittle>
-      <Main onPress={() => GetPosition()} >
+      <Main onPress={ () => GetLocation()}>
           <Icon name="search" size={80} />
-          <CardText>Buscar</CardText>
+          <CardText>Buscar localização</CardText>
       </Main>
       <History>
+
         <HistoryText>Historíco de localização</HistoryText>
         <Scroll>
-        <HistoryOption>
-            <TextOption>Dia 2 de feve. de 2021</TextOption>
+        {user.historico_de_posicao.map( (data, i) => (
+          <HistoryOption key={i}>
+            <TextOption>Dia {data.data}</TextOption>
             <IconContainer>
-            <Icon name="east" size={40} />
+              <Icon 
+                name="east" 
+                size={40} 
+                onPress={() => {
+                  navigation.navigate(
+                      'Map',
+                      {local: data.local}
+                )}}  
+              />
             </IconContainer>
-          </HistoryOption><HistoryOption>
-            <TextOption>Dia 2 de feve. de 2021</TextOption>
-            <IconContainer>
-            <Icon name="east" size={40} />
-            </IconContainer>
-          </HistoryOption><HistoryOption>
-            <TextOption>Dia 2 de feve. de 2021</TextOption>
-            <IconContainer>
-            <Icon name="east" size={40} />
-            </IconContainer>
-          </HistoryOption><HistoryOption>
-            <TextOption>Dia 2 de feve. de 2021</TextOption>
-            <IconContainer>
-            <Icon name="east" size={40} />
-            </IconContainer>
-          </HistoryOption><HistoryOption>
-            <TextOption>Dia 2 de feve. de 2021</TextOption>
-            <IconContainer>
-            <Icon name="east" size={40} />
-            </IconContainer>
-          </HistoryOption><HistoryOption>
-            <TextOption>Dia 2 de feve. de 2021</TextOption>
-            <IconContainer>
-            <Icon name="east" size={40} />
-            </IconContainer>
-          </HistoryOption><HistoryOption>
-            <TextOption>Dia 2 de feve. de 2021</TextOption>
-            <IconContainer>
-            <Icon name="east" size={40} />
-            </IconContainer>
-          </HistoryOption><HistoryOption>
-            <TextOption>Dia 2 de feve. de 2021</TextOption>
-            <IconContainer>
-            <Icon name="east" size={40} />
-            </IconContainer>
-          </HistoryOption><HistoryOption>
-            <TextOption>Dia 2 de feve. de 2021</TextOption>
-            <IconContainer>
-            <Icon name="east" size={40} />
-            </IconContainer>
-          </HistoryOption><HistoryOption>
-            <TextOption>Dia 2 de feve. de 2021</TextOption>
-            <IconContainer>
-            <Icon name="east" size={40} />
-            </IconContainer>
-          </HistoryOption><HistoryOption>
-            <TextOption>Dia 2 de feve. de 2021</TextOption>
-            <IconContainer>
-            <Icon name="east" size={40} />
-            </IconContainer>
-          </HistoryOption><HistoryOption>
-            <TextOption>Dia 2 de feve. de 2021</TextOption>
-            <IconContainer>
-            <Icon name="east" size={40} />
-            </IconContainer>
-          </HistoryOption><HistoryOption>
-            <TextOption>Dia 2 de feve. de 2021</TextOption>
-            <IconContainer>
-            <Icon name="east" size={40} />
-            </IconContainer>
-          </HistoryOption>
-          <HistoryOption>
-            <TextOption>Dia 4 de março de 2021</TextOption>
-            <IconContainer>
-            <Icon name="east" size={40} />
-            </IconContainer>
-          </HistoryOption>
-          <HistoryOption>
-            <TextOption>Dia 17 de junho de 2021</TextOption>
-            <IconContainer>
-            <Icon name="east" size={40} />
-            </IconContainer>
-          </HistoryOption>
-          <HistoryOption>
-            <TextOption>Dia 22 de julho de 2021</TextOption>
-            <IconContainer>
-            <Icon name="east" size={40} />
-            </IconContainer>
-          </HistoryOption>
-          <HistoryOption>
-            <TextOption>Dia 5 de agosto de 2021</TextOption>
-            <IconContainer>
-            <Icon name="east" size={40} />
-            </IconContainer>
-          </HistoryOption>
-          <HistoryOption>
-            <TextOption>Dia 29 de setem. de 2021</TextOption>
-            <IconContainer>
-            <Icon name="east" size={40} />
-            </IconContainer>
-          </HistoryOption>
+          </HistoryOption>  
+        ))}
         </Scroll>
       </History>
     </Container>

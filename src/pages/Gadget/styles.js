@@ -26,11 +26,11 @@ export const NoConnectedContainer = styled.View`
 
 export const ConnectionButton = styled(RectButton)`
     flex-direction: row;
+    margin: 40px;
     justify-content: center;
     border-radius: 10px;
     padding: 15px 10px;
     width: 60%;
-    margin: 0px auto;
     background: white;
     elevation: 10;
     `;
@@ -55,12 +55,19 @@ export const Title = styled.Text`
 
 export const Text = styled.Text`
     font-weight: 100;
-    font-size: 20px;
+    font-size: 17px;
     margin-top: 10px;
     justify-content: center;
     text-align: center;
 `;
 
+export const Text2 = styled.Text`
+    font-weight: 100;
+    font-size: 18px;
+    margin-top: 130px;
+    justify-content: center;
+    text-align: center;
+`;
 export const RemoveConnection = styled(RectButton)`
     flex-direction: row;
     justify-content: center;
@@ -108,8 +115,17 @@ export const PopUp = styled.View`
     justify-content: center;
     width:  300px;
     height: 300px;
-    border-radius: 20px
+    border-radius: 20px;
     border: 3px solid #D0D0D0;
     background: #F1F1F1;
     margin: 160px auto;
+`;
+
+export const TextInput = styled.TextInput`
+    padding: 7px 5px;
+    font-size: 17px;
+    width: 80%;
+    background-color: #e9e5e5;
+    border-radius: 7px;
+    margin: 30px 0 0;
 `;
